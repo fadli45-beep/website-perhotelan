@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Perhotelan</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .content {
+            display: flex;
+        }
+
+        .menu {
+            background-color: #0af49e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-right: 20px;
+            width: 250px;
+        }
+
+        .menu button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #50C878;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .menu button:hover {
+            background-color: #3CA568;
+        }
+
+        .main {
+            background-color: #C5E7E2;
+            padding: 20px;
+            border-radius: 10px;
+            width: 450px;
+            display: none;
+        }
+
+        input[type="text"], input[type="number"], input[type="date"], select {
+            padding: 8px;
+            margin-bottom: 15px;
+            width: calc(100% - 16px);
+            border-radius: 5px;
+            border: 1px solid #50C878;
+        }
+
+        input[type="button"], input[type="reset"] {
+            padding: 12px;
+            margin: 5px 0;
+            width: 48%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="button"] {
+            background-color: #e80cca;
+            color: white;
+        }
+
+        input[type="button"]:hover {
+            background-color: #b11a1a;
+        }
+
+        input[type="reset"] {
+            background-color: #d12d94;
+            color: white;
+        }
+
+        input[type="reset"]:hover {
+            background-color: #3957ba;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #151514;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ffd500fb;
+            color: rgba(255, 255, 255, 0.845);
+        }
+
+        td {
+            background-color: #E8F6F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="menu">
+                <h1>SISTEM INFORMASI PERHOTELAN</h1>
+                <button onclick="showContent('main')">BERANDA</button>
+                <button onclick="showContent('form-data-kamar')">DATA KAMAR</button>
+                <button onclick="showContent('form-booking')">BOOKING</button>
+                <button onclick="showContent('form-pembayaran')">PEMBAYARAN</button>
+                <button onclick="showContent('form-laporan')">LAPORAN</button>
+            </div>
+
+            <div class="main" id="main" style="display: block;">
+                <h1>Selamat Datang di Sistem Informasi Perhotelan</h1>
+            </div>
+
+            <div class="main" id="form-data-kamar">
+                <h1>DATA KAMAR</h1>
+                <form id="kamarForm">
+                    <label>Nomor Kamar:</label>
+                    <input type="text" id="nomorKamar" required>
+                    <label>Tipe Kamar:</label>
+                    <select id="tipeKamar" required>
+                        <option value="Deluxe">Deluxe</option>
+                        <option value="Standar">Standar</option>
+                    </select>
+                    <div>
+                        <input type="button" value="Simpan" onclick="simpanDataKamar()">
+                        <input type="reset" value="Ulang">
+                    </div>
+                </form>
+                <table id="tabelKamar">
+                    <thead>
+                        <tr>
+                            <th>Nomor</th>
+                            <th>Tipe</th>
+                            <th>Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data kamar akan muncul di sini -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="main" id="form-booking">
+                <h1>BOOKING</h1>
+                <form>
+                    <label>Nama Tamu:</label>
+                    <input type="text" id="namaTamu" required>
+                    <label>Nomor Kamar:</label>
+                    <input type="text" id="nomorKamarBooking" required>
+                    <label>Tanggal Check-in:</label>
+                    <input type="date" id="checkin" required>
+                    <label>Tanggal Check-out:</label>
+                    <input type="date" id="checkout" required>
+                    <div>
+                        <input type="button" value="Simpan Booking" onclick="simpanBooking()">
+                        <input type="reset" value="Ulang">
+                    </div>
+                </form>
+                <table id="tabelBooking">
+                    <thead>
+                        <tr>
+                            <th>Nama Tamu</th>
+                            <th>Nomor Kamar</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data booking akan muncul di sini -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="main" id="form-pembayaran">
+                <h1>PEMBAYARAN</h1>
+                <form>
+                    <label>Total Tagihan:</label>
+                    <input type="number" id="totalTagihan" required>
+                    <label>Jumlah Bayar:</label>
+                    <input type="number" id="jumlahBayar" required>
+                    <div>
+                        <input type="button" value="Proses Pembayaran" onclick="prosesPembayaran()">
+                        <input type="reset" value="Ulang">
+                    </div>
+                </form>
+                <h3>Kembalian: <span id="kembalian"></span></h3>
+            </div>
+
+            <div class="main" id="form-laporan">
+                <h1>LAPORAN</h1>
+                <p>Form Laporan akan ditambahkan di sini.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showContent(contentId) {
+            const contents = document.querySelectorAll('.main');
+            contents.forEach(content => {
+                content.style.display = 'none';
+            });
+            const selectedContent = document.getElementById(contentId);
+            if (selectedContent) {
+                selectedContent.style.display = 'block';
+            }
+        }
+
+        function simpanDataKamar() {
+            const nomor = document.getElementById('nomorKamar').value;
+            const tipe = document.getElementById('tipeKamar').value;
+            let harga;
+
+            if (tipe === 'Deluxe') {
+                harga = 5000000;
+            } else if (tipe === 'Standar') {
+                harga = 250000;
+            }
+
+            if (nomor && tipe) {
+                const tabel = document.getElementById('tabelKamar').getElementsByTagName('tbody')[0];
+                const newRow = tabel.insertRow();
+
+                newRow.innerHTML = `<td>${nomor}</td><td>${tipe}</td><td>${harga}</td>`;
+
+                document.getElementById('kamarForm').reset();
+            } else {
+                alert("Harap lengkapi semua data.");
+            }
+        }
+
+        function simpanBooking() {
+            const nama = document.getElementById('namaTamu').value;
+            const nomorKamar = document.getElementById('nomorKamarBooking').value;
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+
+            if (nama && nomorKamar && checkin && checkout) {
+                const tabel = document.getElementById('tabelBooking').getElementsByTagName('tbody')[0];
+                const newRow = tabel.insertRow();
+
+                newRow.innerHTML = `<td>${nama}</td><td>${nomorKamar}</td><td>${checkin}</td><td>${checkout}</td>`;
+
+                document.querySelector('#form-booking form').reset();
+            } else {
+                alert("Harap lengkapi semua data booking.");
+            }
+        }
+
+        function formatRupiah(angka) {
+            return 'Rp' + angka.toLocaleString('id-ID', { minimumFractionDigits: 0 });
+        }
+
+        function prosesPembayaran() {
+            const totalTagihan = parseFloat(document.getElementById('totalTagihan').value);
+            const jumlahBayar = parseFloat(document.getElementById('jumlahBayar').value);
+
+            if (!isNaN(totalTagihan) && !isNaN(jumlahBayar)) {
+                const kembalian = jumlahBayar - totalTagihan;
+                document.getElementById('kembalian').innerText = kembalian >= 0 
+                    ? formatRupiah(kembalian) 
+                    : "Jumlah bayar kurang";
+            } else {
+                alert("Harap masukkan jumlah yang valid.");
+            }
+        }
+    </script>
+</body>
+</html>
